@@ -1,0 +1,8 @@
+[package]
+name = "hyperdoom"
+version = "0.1.0"
+authors = ["Wenqi Zhang <zhangwenqi1988@gmail.com>"]
+
+[dependencies]
+renderer = { path = "./renderer" }
+server = { path = "./server" }

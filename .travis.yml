@@ -11,9 +11,11 @@ os:
 - linux
 
 script:
-- cd backend
+- pushd ./backend
 - cargo build --verbose
-- cargo test --verbose
+- pushd ./renderer && pwd && cargo test --lib && popd
+- pushd ./server && pwd && cargo test --lib && popd
+- popd
 
 notifications:
 - email: false

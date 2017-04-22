@@ -1,14 +1,11 @@
 use common::constants;
 use std::fmt;
 use std::ops::{
-  Add, AddAssign,
-  Sub, SubAssign, Neg,
-  Div, DivAssign,
-  Mul, MulAssign,
-  Index, IndexMut,
-  BitXor, BitXorAssign,
+  Add, AddAssign, Sub, SubAssign, Neg,
+  Div, DivAssign, Mul, MulAssign,
+  Index, IndexMut, BitXor, BitXorAssign,
 };
-use std::cmp::Eq;
+use std::cmp::PartialEq;
 
 #[derive(Debug, Copy, Clone)]
 pub struct Vector3 {
@@ -16,7 +13,7 @@ pub struct Vector3 {
 }
 
 impl Vector3 {
-  /// Component getters.
+  /// Properties.
   pub fn x(&self) -> f64 {
     self.v[0]
   }
@@ -27,6 +24,34 @@ impl Vector3 {
 
   pub fn z(&self) -> f64 {
     self.v[2]
+  }
+
+  pub fn len(&self) -> f64 {
+    self.len2().sqrt()
+  }
+
+  pub fn len2(&self) -> f64 {
+    (*self) * (*self)
+  }
+
+  pub fn to_array(&self) -> [f64; 3] {
+    [self.v[0], self.v[1], self.v[2]]
+  }
+
+  pub fn normalize(&self) -> Self {
+    let mut v = self.clone();
+    v.normalize_self();
+    v
+  }
+
+  pub fn normalize_self(&mut self) -> f64 {
+    let mut len = self.len2();
+    if len < constants::EPSILON_TINY {
+      return 0.0;
+    }
+    len = len.sqrt();
+    *self /= len;
+    len
   }
 
   /// Constructors and factories
@@ -199,5 +224,18 @@ impl IndexMut<usize> for Vector3 {
   fn index_mut(&mut self, ind: usize) -> &mut f64 {
     assert!(ind < 3, "Index out of bound!");
     &mut self.v[ind]
+  }
+}
+
+/// Overriding == and != to allow comparison within error bounds.
+impl PartialEq for Vector3 {
+  fn eq(&self, rhs: &Self) -> bool {
+    (self.v[0] - rhs.v[0]).abs() < constants::EPSILON
+        && (self.v[1] - rhs.v[1]).abs() < constants::EPSILON
+        && (self.v[2] - rhs.v[2]).abs() < constants::EPSILON
+  }
+
+  fn ne(&self, rhs: &Self) -> bool {
+    !self.eq(rhs)
   }
 }

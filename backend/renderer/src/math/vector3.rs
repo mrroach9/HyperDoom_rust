@@ -7,43 +7,55 @@ use std::ops::{
 };
 use std::cmp::PartialEq;
 
+/// Definition and operations of a 3-dimentional double-precision vector.
 #[derive(Debug, Copy, Clone)]
 pub struct Vector3 {
   v: [f64; 3],
 }
 
 impl Vector3 {
-  /// Properties.
+  /// Returns x component of the vector.
   pub fn x(&self) -> f64 {
     self.v[0]
   }
 
+  /// Returns y component of the vector.
   pub fn y(&self) -> f64 {
     self.v[1]
   }
 
+  /// Returns z component of the vector.
   pub fn z(&self) -> f64 {
     self.v[2]
   }
 
+  /// Returns the norm-2 length of the vector.
   pub fn len(&self) -> f64 {
     self.len2().sqrt()
   }
 
+  /// Returns the square of norm-2 length of the vector. This method is
+  /// usually used when you just need the square of the length, but do not
+  /// want to involve a redundant sqrt calculation.
   pub fn len2(&self) -> f64 {
     (*self) * (*self)
   }
 
+  /// Converts the vector into an array of length 3.
   pub fn to_array(&self) -> [f64; 3] {
     [self.v[0], self.v[1], self.v[2]]
   }
 
+  /// Returns the normalized vector of this instance. If this vector is a 
+  /// zero vector, return zero vector.
   pub fn normalize(&self) -> Self {
     let mut v = self.clone();
     v.normalize_self();
     v
   }
 
+  /// Normalizes this vector itself, and returns the norm-2 length. If this
+  /// instance is a zero vector, do nothing and return 0. 
   pub fn normalize_self(&mut self) -> f64 {
     let mut len = self.len2();
     if len < constants::EPSILON_TINY {
@@ -54,44 +66,52 @@ impl Vector3 {
     len
   }
 
-  /// Constructors and factories
+  /// Constructor from three components.
   pub fn new(x: f64, y: f64, z: f64) -> Self {
     Self {
       v: [x, y, z],
     }
   }
 
+  /// Constructs a vector from an array of length 3.
   pub fn new_from_array(arr: &[f64; 3]) -> Self {
     Self {
       v: [arr[0], arr[1], arr[2]],
     }
   }
 
+  /// Constructs a vector of the same value for its three components.
   pub fn identity(s: f64) -> Self {
     Self::new(s, s, s)
   }
 
+  /// Constructs a zero vector, i.e. (0, 0, 0).
   pub fn zero() -> Self {
     Self::identity(0.0)
   }
 
+  /// Constructs a vector with all components equal to one.
   pub fn one() -> Self {
     Self::identity(1.0)
   }
 
+  /// Constructs vector (1, 0, 0).
   pub fn x_unit() -> Self {
     Self::new(1.0, 0.0, 0.0)
   }
 
+  /// Constructs vector (0, 1, 0).
   pub fn y_unit() -> Self {
     Self::new(0.0, 1.0, 0.0)
   }
 
+  /// Constructs vector (0, 0, 1).
   pub fn z_unit() -> Self {
     Self::new(0.0, 0.0, 1.0)
   }
 }
 
+/// Printing the vector as (x, y, z).
 impl fmt::Display for Vector3 {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     write!(f, "({}, {}, {})", self.v[0], self.v[1], self.v[2])

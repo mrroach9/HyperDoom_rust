@@ -25,12 +25,15 @@ impl Matrix3 {
 
   /// Converts this matrix to its transpose.
   pub fn transpose_self(&mut self) {
-    let mut m0 = self.m[0];
-    let mut m1 = self.m[1];
-    let mut m2 = self.m[2];
-    mem::swap(&mut m0[1], &mut m1[0]);
-    mem::swap(&mut m0[2], &mut m2[0]);
-    mem::swap(&mut m1[2], &mut m2[1]);
+    let mut t = self.m[0][1];
+    self.m[0][1] = self.m[1][0];
+    self.m[1][0] = t;
+    t = self.m[0][2];
+    self.m[0][2] = self.m[2][0];
+    self.m[2][0] = t;
+    t = self.m[1][2];
+    self.m[1][2] = self.m[2][1];
+    self.m[2][1] = t;
   }
 
   /// Calculates the determinant.
@@ -182,7 +185,8 @@ impl Mul for Matrix3 {
   type Output = Self;
   fn mul(self, rhs: Self) -> Self {
     let rt = rhs.t();
-    Matrix3::new_from_vectors(self * rt.m[0], self * rt.m[1], self * rt.m[2])
+    Matrix3::new_from_vectors(
+      self * rt.m[0], self * rt.m[1], self * rt.m[2]).t()
   }
 }
 

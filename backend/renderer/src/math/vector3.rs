@@ -114,7 +114,7 @@ impl Vector3 {
 /// Printing the vector as (x, y, z).
 impl fmt::Display for Vector3 {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-    write!(f, "({}, {}, {})", self.v[0], self.v[1], self.v[2])
+    write!(f, "({}, {}, {})", &self.v[0], &self.v[1], &self.v[2])
   }
 }
 

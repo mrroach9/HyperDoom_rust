@@ -1,6 +1,5 @@
 use common::constants;
 use std::fmt;
-use std::mem;
 use std::ops::{
   Add, AddAssign, Sub, SubAssign, Neg,
   Div, DivAssign, Mul, MulAssign,
@@ -17,8 +16,8 @@ pub struct Matrix3 {
 
 impl Matrix3 {
   /// Returns a new matrix whose value is the transpose of this.
-  pub fn t(&self) -> Matrix3 {
-    let mut m = *self;
+  pub fn t(self) -> Self {
+    let mut m = self;
     m.transpose_self();
     m
   }
@@ -244,6 +243,6 @@ impl PartialEq for Matrix3 {
 /// )
 impl fmt::Display for Matrix3 {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-    write!(f, "(\n {},\n {},\n {}\n)", self.m[0], self.m[1], self.m[2])
+    write!(f, "(\n {},\n {},\n {}\n)", &self.m[0], &self.m[1], &self.m[2])
   }
 }

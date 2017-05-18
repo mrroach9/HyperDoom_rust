@@ -68,7 +68,7 @@ impl BoundingBox3 {
   }
 
   // Returns a new bounding box by moving this one along a specified direction.
-  pub fn move_along(self, dir: Vector3) -> Self {
+  pub fn move_by(self, dir: Vector3) -> Self {
     let mut b = self;
     b.move_self(dir);
     b

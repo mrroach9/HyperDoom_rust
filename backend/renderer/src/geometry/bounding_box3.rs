@@ -1,7 +1,7 @@
+use geometry::{HasSurfaceArea, HasVolume};
+use math::Vector3;
 use std::fmt;
 use std::cmp::PartialEq;
-use math::Vector3;
-use geometry::{HasSurfaceArea, HasVolume};
 
 // Definitions and operations of a 3-d bounding box, with all edges parallel
 // with axis. Upper-left-front corner (min corner) and bottom-right-rear corner

@@ -1,7 +1,9 @@
 extern crate renderer;
 
 use renderer::math::{Vector3, Matrix3};
-use renderer::geometry::{BoundingBox3, HasVolume};
+use renderer::geometry::{
+    BoundingBox3, Triangle3, HasBoundingBox3, HasVolume,
+    HasSurfaceArea};
 use renderer::common::constants;
 
 fn main() {
@@ -10,7 +12,7 @@ fn main() {
   println!("EPSILON = {}, EPSILON_TINY = {}",
       constants::EPSILON, constants::EPSILON_TINY);
 
-  println!("=============Testing Vector3...==============");  
+  println!("=============Testing Vector3...==============");
   let v = Vector3::new(1.0, 2.0, 3.0);
   println!("v = {}", &v);
   println!("|v| = {}", &v.len());
@@ -30,4 +32,13 @@ fn main() {
       Vector3::new(11.0, 22.0, 5.0));
   println!("b = {}", &b);
   println!("volume of b = {}", &b.volume());
+
+  println!("===========Testing Triangle3...==============");
+  let t = Triangle3::new(
+      Vector3::new(1.0, 0.0, 0.0),
+      Vector3::new(0.0, 1.0, 0.0),
+      Vector3::new(0.0, 0.0, 1.0));
+  println!("t = {}", &t);
+  println!("surface area of t = {}", &t.surface_area());
+  println!("normal of t = {}", &t.normal());
 }

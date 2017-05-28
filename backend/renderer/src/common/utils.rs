@@ -25,5 +25,5 @@ pub fn max_array(v: &[f64]) -> f64 {
 // NaN, max and min of floating numbers in an array are not implemented, hereby
 // we implement them.
 pub fn min_array(v: &[f64]) -> f64 {
-  v.iter().cloned().fold(-constants::INFINITY, f64::min)
+  v.iter().cloned().fold(constants::INFINITY, f64::min)
 }

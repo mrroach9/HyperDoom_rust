@@ -18,7 +18,7 @@ impl Triangle3 {
   // Returns the vertice at a given index. Vertices are stored in the same
   // order as they're passed in when initilized.
   pub fn v(&self, ind: usize) -> Vector3 {
-    assert!(ind >= 0 && ind <= 2);
+    assert!(ind < 3, "Index out of bound!");
     self.vertices[ind]
   }
 
@@ -27,7 +27,7 @@ impl Triangle3 {
   // Edge #1: v1 -> v2;
   // Edge #2: v2 -> v0.
   pub fn e(&self, ind: usize) -> Vector3 {
-    assert!(ind >= 0 && ind <= 2);
+    assert!(ind < 3, "Index out of bound!");
     self.vertices[(ind + 1) % 3] - self.vertices[ind]
   }
 

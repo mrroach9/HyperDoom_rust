@@ -3,9 +3,9 @@ use math::Vector3;
 use std::fmt;
 use std::cmp::PartialEq;
 
-// Definitions and operations of a 3-d bounding box, with all edges parallel
-// with axis. Upper-left-front corner (min corner) and bottom-right-rear corner
-// are stored to represent the box.
+/// Definitions and operations of a 3-d bounding box, with all edges parallel
+/// with axis. Upper-left-front corner (min corner) and bottom-right-rear corner
+/// are stored to represent the box.
 #[derive(Debug, Copy, Clone)]
 pub struct BoundingBox3 {
   min_corner: Vector3,
@@ -84,7 +84,7 @@ impl BoundingBox3 {
     }
   }
 
-  // Returns a new empty bounding box with min and max corners be at (0, 0, 0).
+  /// Returns a new empty bounding box with min and max corners be at (0, 0, 0).
   pub fn zero() -> Self {
     Self::new(Vector3::zero(), Vector3::zero())
   }

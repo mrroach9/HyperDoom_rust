@@ -5,6 +5,7 @@ pub use self::traits::*;
 mod bounding_box3;
 mod traits;
 mod triangle3;
+mod triangular_mesh;
 
 #[cfg(test)]
 mod test;

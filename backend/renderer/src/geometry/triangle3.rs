@@ -4,28 +4,30 @@ use math::Vector3;
 use std::cmp::{PartialEq};
 use std::fmt;
 
-// Definitions and operations of a triangle in 3D space, storing its three
-// vertices in counter-clockwise order (with up direction pointing to the
-// exterior of the shape).
-// The triangle is constant after it's initialized. To modify or update the
-// triangle, copy and initialize a new one.
+/// Definitions and operations of a triangle in 3D space, storing its three
+/// vertices in counter-clockwise order (with up direction pointing to the
+/// exterior of the shape).
+///
+/// The triangle is immutable after initialized. To modify or update the
+/// triangle, copy and initialize a new one.
 #[derive(Debug, Copy, Clone)]
 pub struct Triangle3 {
   vertices: [Vector3; 3],
 }
 
 impl Triangle3 {
-  // Returns the vertice at a given index. Vertices are stored in the same
-  // order as they're passed in when initilized.
+  /// Returns the vertice at a given index. Vertices are stored in the same
+  /// order as they're passed in when initilized.
   pub fn v(&self, ind: usize) -> Vector3 {
     assert!(ind < 3, "Index out of bound!");
     self.vertices[ind]
   }
 
-  // Returns the edge at a given index. Edges are indexed as follows:
-  // Edge #0: v0 -> v1;
-  // Edge #1: v1 -> v2;
-  // Edge #2: v2 -> v0.
+  /// Returns the edge at a given index. Edges are indexed as follows:
+  ///
+  /// - Edge #0: v0 -> v1;
+  /// - Edge #1: v1 -> v2;
+  /// - Edge #2: v2 -> v0.
   pub fn e(&self, ind: usize) -> Vector3 {
     assert!(ind < 3, "Index out of bound!");
     self.vertices[(ind + 1) % 3] - self.vertices[ind]
@@ -88,8 +90,8 @@ impl HasBoundingBox3 for Triangle3 {
   }
 }
 
-// Print the triangle as:
-// Triangle3(v1, v2, v3)
+/// Print the triangle as:
+/// Triangle3(v1, v2, v3)
 impl fmt::Display for Triangle3 {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     write!(f, "Triangle3({}, {}, {})",

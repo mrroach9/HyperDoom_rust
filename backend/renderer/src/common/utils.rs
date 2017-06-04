@@ -27,3 +27,8 @@ pub fn max_array(v: &[f64]) -> f64 {
 pub fn min_array(v: &[f64]) -> f64 {
   v.iter().cloned().fold(constants::INFINITY, f64::min)
 }
+
+// Compare two floats within a small error bound.
+pub fn equal_with_bound(lhs: f64, rhs: f64) -> bool {
+  lhs - rhs <= constants::EPSILON && rhs - lhs <= constants::EPSILON
+}
